@@ -12,7 +12,7 @@ simServer.on('connection', function(conn) {
     const streams = BattleStreams.getPlayerStreams(
         new BattleStreams.BattleStream());
     const p1 = new BattleClient.BattleStreamClient(streams.p1, conn);
-    const p2 = new BattleClient.BattleStreamClient(streams.p2, conn);
+    //const p2 = new BattleClient.BattleStreamClient(streams.p2, conn);
 
     const spec = {
       formatid: "gen7customgame",
@@ -25,12 +25,12 @@ simServer.on('connection', function(conn) {
       name: "Bot 2",
       team: Dex.packTeam(Dex.generateTeam('gen7randombattle')),
     };
-    (async () => {
-      let chunk;
-      while ((chunk = await p1.stream.read())) {
-        conn.write(chunk);
-      }
-    })();
+    //(async () => {
+      //let chunk;
+      //while ((chunk = streams.omniscient.read())) {
+        //console.log(chunk)
+      //}
+    //})();
     streams.omniscient.write(`>start ${JSON.stringify(spec)}`);
     streams.omniscient.write(`>player p1 ${JSON.stringify(p1spec)}`);
     streams.omniscient.write(`>player p2 ${JSON.stringify(p2spec)}`);
