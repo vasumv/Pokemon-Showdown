@@ -14,9 +14,6 @@ class BattleStreamClient extends BattleStreams.BattlePlayer {
   }
 
 	receiveRequest(request) {
-    var requestCopy = request;
-    console.log(request)
-    this.conn.write(JSON.stringify(request));
     if (request.wait) {
       // wait request
       // do nothing
@@ -39,6 +36,7 @@ class BattleStreamClient extends BattleStreams.BattlePlayer {
         chosen.push(target);
         return `switch ${target}`;
       });
+      console.log(choices.join(`, `));
       this.choose(choices.join(`, `));
     } else if (request.active) {
       // move request
@@ -52,9 +50,8 @@ class BattleStreamClient extends BattleStreams.BattlePlayer {
         const move = randomElem(canMove);
         const targetable = request.active.length > 1 && ['normal', 'any'].includes(pokemon.moves[move - 1].target);
         const target = targetable ? ` ${1 + Math.floor(Math.random() * 2)}` : ``;
-        return `move ${move}${target}`;
+        //return `move ${move}${target}`;
       });
-      console.log(choices.join(`, `))
       //this.choose(choices.join(`, `));
     } else {
       // team preview?
